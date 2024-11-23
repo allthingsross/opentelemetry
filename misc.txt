@@ -1,2 +1,17 @@
+
+helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts
 helm install opentelemetry-operator open-telemetry/opentelemetry-operator --set "manager.collectorImage.repository=otel/opentelemetry-collector-k8s" --set admissionWebhooks.certManager.enabled=false --set admissionWebhooks.autoGenerateCert.enabled=true
 kubectl apply -f my-collector.yml
+
+
+ helm install my-otel-demo open-telemetry/opentelemetry-demo
+- All services are available via the Frontend proxy: http://localhost:8080
+  by running these commands:
+     kubectl --namespace default port-forward svc/my-otel-demo-frontendproxy 8080:8080
+
+  The following services are available at these paths after the frontendproxy service is exposed with port forwarding:
+  Webstore             http://localhost:8080/
+  Jaeger UI            http://localhost:8080/jaeger/ui/
+  Grafana              http://localhost:8080/grafana/
+  Load Generator UI    http://localhost:8080/loadgen/
+  Feature Flags UI     http://localhost:8080/feature/
